@@ -1,0 +1,64 @@
+{
+  "name": "pro-fuel-trace-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/pro-fuel-trace-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/pro-fuel-trace-api",
+        "main": "apps/pro-fuel-trace-api/src/main.ts",
+        "tsConfig": "apps/pro-fuel-trace-api/tsconfig.app.json",
+        "assets": ["apps/pro-fuel-trace-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/pro-fuel-trace-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "pro-fuel-trace-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "pro-fuel-trace-api:build:development"
+        },
+        "production": {
+          "buildTarget": "pro-fuel-trace-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/pro-fuel-trace-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/pro-fuel-trace-api/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
