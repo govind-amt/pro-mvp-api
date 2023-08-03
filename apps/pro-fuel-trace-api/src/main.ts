@@ -1,22 +1,50 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
 
-import { Logger } from '@nestjs/common';
+import {Logger, ValidationPipe} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
+import { env } from 'process';
+import {logger} from "nx/src/utils/logger";
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule,{
+    logger:['error', 'warn', 'log', 'debug', 'verbose']
+  });
+
+
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3000;
+  app.useGlobalPipes(
+    new ValidationPipe({
+      disableErrorMessages: false,
+      whitelist: true,
+      transform: true,
+    }),
+  );
+  app.use(bodyParser.json({ limit: '50mb' }));
+  app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
+  /**
+   * Open API configurations
+   * */
+  const config = new DocumentBuilder()
+    .setTitle('ProFuelTrace Application')
+    .setDescription('A ProDecipher innovation')
+    .setVersion('1.0')
+    .addTag('Auth')
+    .addTag('User')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
+  const port = env.PORT || 3000;
   await app.listen(port);
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
 }
 
-bootstrap();
+bootstrap().catch((e)=>{
+  logger.error(`API failed to start : ${JSON.stringify(e)}`)
+});
