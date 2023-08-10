@@ -9,7 +9,7 @@ import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
-    logger:['error', 'warn', 'log', 'debug', 'verbose']
+    logger: env.NODE_ENV === 'development' ? ['error', 'warn', 'log', 'verbose'] : ['error', 'warn', 'log', 'debug']
   });
 
 
@@ -38,7 +38,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  const port = env.PORT || 3000;
+  const port = env.PORT || 8980;
   await app.listen(port);
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
