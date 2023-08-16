@@ -7,9 +7,9 @@ import {UserDocument , userSchemaName} from "@pro-fuel-trace-api/schema";
 export class UsersRepository {
   constructor(@InjectModel(userSchemaName) private userModel: Model<UserDocument>) { }
   async checkUser(username: string) {
-    const responseOne = this.userModel.findOne({username:username});
-    if(Object.keys(responseOne).length) {
-      return responseOne;
+    const queryResponse = this.userModel.findOne({username:username});
+    if(Object.keys(queryResponse).length) {
+      return queryResponse;
     } else {
         return new this.userModel();
       }
