@@ -46,10 +46,7 @@ map roles {
 
 
 users --* roles: to fetch different roles from roles collection
-Database -> organizationSites
-Database -> siteManagers
-Database -> roles
-Database -> users
+Database -> Collections
 organizationSites --* siteManagers: to fetch the siteManager details from users
 
 
