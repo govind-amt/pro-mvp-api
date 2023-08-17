@@ -29,12 +29,7 @@ map users {
         site => objectId
 
 }
-map siteManagers {
- **Field Name ** => **Data type **
-        _id => objectId
-        userType => string
-        permissions => Array
-}
+
 map roles {
  **Field Name ** => **Data type **
         _id => objectId
@@ -47,7 +42,7 @@ map roles {
 
 users --* roles: to fetch different roles from roles collection
 Database -> Collections
-organizationSites --* siteManagers: to fetch the siteManager details from users
+organizationSites --* users: to fetch the user details from users collection
 
 
 

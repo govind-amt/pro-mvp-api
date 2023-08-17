@@ -4,16 +4,16 @@ import { Document } from 'mongoose';
 @Schema()
 export class User {
   @Prop()
-  username: string;
+  username!: string;
 
   @Prop()
-  password: string;
+  password!: string;
 
   @Prop()
-  role: string;
+  role!: string;
 
   @Prop()
-  orgName: string;
+  orgName!: string;
 }
 export const UserSchema = SchemaFactory.createForClass(User);
 export type UserDocument = User & Document;

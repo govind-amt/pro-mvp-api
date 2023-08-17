@@ -1,12 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import {UserDocument} from "@pro-fuel-trace-api/schema";
 
 @Injectable()
 export class UsersService {
   constructor(private userRepo: UsersRepository) {
   }
-  async getUser(name: string ) :Promise<UserDocument>{
-    return this.userRepo.checkUser(name);
+  async getUser(name: string ) {
+
+    const responseOne = await this.userRepo.checkUser(name);
+
+    if(responseOne && Object.keys(responseOne).length) {
+      return responseOne;
+    } else {
+      return {  username: null, role: null, orgName: null, password:null}
+    }
+
   }
 }

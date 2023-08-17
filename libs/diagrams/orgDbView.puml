@@ -1,0 +1,54 @@
+@startuml
+hide circle
+skinparam linetype ortho
+package environmentOne {
+map organisation {
+ **Field Name ** => **Data type **
+   org_id	=> objectId
+   organizationName	=> string
+   orgAddress =>	string
+   iscc_id =>	string
+   organisationEmail	=> string
+}
+}
+package environmentTwo {
+map organisationSites {
+ **Field Name ** => **Data type **
+  site_id=>	objectId
+  siteName=>	string
+  siteAddress=>	string
+  inputStock=>	string
+  outputStock=>	string
+  balance=>	string
+}
+map users {
+ **Field Name ** => **Data type **
+user_id=>	objectId
+userName	=>string
+userType=>	string
+userPermission=>	Array
+}
+map roles {
+ **Field Name ** => **Data type **
+  _id	=>objectId
+  userRole=>	string
+  permissions	=>Array
+}
+map bioFuels {
+ **Field Name ** => **Data type **
+_id	 =>objectId
+fuelType	 =>string
+inputStock =>	string
+outputStock	 =>string
+balance =>	string
+}
+}
+
+
+organisation --> organisationSites
+organisationSites  }|--|| users
+users  }|--|| roles
+users  }|--|| bioFuels
+
+
+@enduml
