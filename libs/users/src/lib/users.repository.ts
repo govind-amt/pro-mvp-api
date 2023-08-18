@@ -15,4 +15,21 @@ export class UsersRepository {
         return new this.userModel();
       }
   }
+
+  /**
+   * function to save user while signing up
+   * @param email
+   * @param password
+   * @param orgName
+   */
+  async saveUser(email: string, password: string,orgName:string) {
+    const user = new this.userModel({
+      username: email,
+      password: password,
+      orgName:orgName,
+      role:1
+    });
+    await user.save();
+    return user;
+  }
 }
