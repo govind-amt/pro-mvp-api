@@ -1,0 +1,15 @@
+@startuml
+hide circle
+skinparam linetype ortho
+package ProDecipherAdmin {
+map organisation {
+ **Field Name ** => **Data type **
+_id	=>	objectId
+organizationName	=>	string
+orgAddress	=>	string
+iscc_id	=>	string
+isKycDone	=>	Boolean
+organisationEmail	=>	string
+}
+}
+@enduml

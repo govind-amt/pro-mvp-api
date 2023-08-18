@@ -1,54 +1,87 @@
 @startuml
 hide circle
 skinparam linetype ortho
-package environmentOne {
-map organisation {
- **Field Name ** => **Data type **
-   org_id	=> objectId
-   organizationName	=> string
-   orgAddress =>	string
-   iscc_id =>	string
-   organisationEmail	=> string
-}
-}
-package environmentTwo {
+package Organisation {
 map organisationSites {
  **Field Name ** => **Data type **
-  site_id=>	objectId
-  siteName=>	string
-  siteAddress=>	string
-  inputStock=>	string
-  outputStock=>	string
-  balance=>	string
+_id (PK)	=>	objectId
+siteLocation	=>	string
+organizationName	=>	string
+organizationId	=>	string
 }
 map users {
  **Field Name ** => **Data type **
-user_id=>	objectId
-userName	=>string
-userType=>	string
-userPermission=>	Array
+_id (PK)	=>	objectId
+organizationSiteId (FK)		=>	objectId
+userName	=>	string
+password	=>	string
+email	=>	string
+role (FK)	=>	objectId
 }
 map roles {
  **Field Name ** => **Data type **
-  _id	=>objectId
-  userRole=>	string
-  permissions	=>Array
+_id (PK)	=>	objectId
+userRole	=>	string
+permissions	=>	Array
 }
 map bioFuels {
  **Field Name ** => **Data type **
-_id	 =>objectId
-fuelType	 =>string
-inputStock =>	string
-outputStock	 =>string
-balance =>	string
+_id (PK)	=>	objectId
+fuelType	=>	string
 }
+map stocks {
+ **Field Name ** => **Data type **
+_id (PK)	=>	objectId
+organizationSiteId (FK)	=>	objectId
+bioFuelType (FK)	=>	objectId
+inputStock	=>	number
+currentStock	=>	number
+balance	=>	number
+}
+map Buyers {
+ **Field Name ** => **Data type **
+_id	(PK) =>	objectId
+email	=>	string
+companyName	=>	string
+name	=>	string
+organizationSiteId (FK)	=>	ObjectId
+userId (FK)	=>	ObjectId
+status	=>	Boolean
+posGenerated	=>	Boolean
+posId (FK)	=>	ObjectId
+}
+map Sellers {
+ **Field Name ** => **Data type **
+_id	(PK) =>	objectId
+email	=>	string
+companyName	=>	string
+name	=>	string
+organizationSiteId (FK)	=>	ObjectId
+userId (FK)	=>	ObjectId
+status	=>	Boolean
+posUploaded	=>	Boolean
+posId (FK)	=>	ObjectId
+}
+map Pos {
+ **Field Name ** => **Data type **
+_id	(PK) =>	objectId
+issueDate		=>string
+name		=>string
+ }
 }
 
 
-organisation --> organisationSites
-organisationSites  }|--|| users
-users  }|--|| roles
-users  }|--|| bioFuels
+'organisation --> organisationSites
+organisationSites  --> users
+organisationSites -- stocks
+stocks  }--{ bioFuels
+users  }-- roles
+organisationSites --{ Buyers
+organisationSites  --{ Sellers
+users  --{ Sellers
+users  --|{ Buyers
+Buyers  --{ Pos : generated Pos
+Sellers  --{ Pos : Uploaded Pos
 
 
 @enduml
