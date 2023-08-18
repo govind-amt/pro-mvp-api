@@ -1,12 +1,34 @@
-import {Injectable, Logger} from '@nestjs/common';
+import {Injectable , UnauthorizedException} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import {UsersService} from "@pro-fuel-trace-api/users";
 
 @Injectable()
 export class AuthService {
-  async login(username: string | undefined, password: string | undefined){
-    Logger.debug("username and password: ", username, password);
+  constructor(
+    private userService: UsersService,
+    private jwtService: JwtService
+  ) {}
+
+  async login(username: string, password: string){
+    const user = await this.userService.getUser(username);
+    /* DB checking for authentication*/
+if(user && Object.keys(user).length) {
+  if (user.password !== password) {
+    throw new UnauthorizedException();
+  } else {
+    // ADD relevant details like roles and permissions and sign JWT;
+    const payload: object = {  username: user.username , role: user.role, orgName: user.orgName};
     return {
       status: 200,
-      info: 'OK'
+      info: 'OK',
+      access_token: await this.jwtService.signAsync(payload)
     }
+  }
+} else {
+  return {
+    status: 400,
+    info: "User not exist"
+  }
+}
   }
 }

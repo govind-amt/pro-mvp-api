@@ -19,6 +19,8 @@
       "@pro-fuel-trace-api/data-transfer-object": [
         "libs/data-transfer-object/src/index.ts"
       ],
+      "@pro-fuel-trace-api/mock-data": ["libs/mock-data/src/index.ts"],
+      "@pro-fuel-trace-api/schema": ["libs/schema/src/index.ts"],
       "@pro-fuel-trace-api/users": ["libs/users/src/index.ts"]
     }
   },
