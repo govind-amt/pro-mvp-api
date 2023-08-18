@@ -5,8 +5,6 @@ import {AuthModule} from "@pro-fuel-trace-api/auth";
 import {MongooseModule} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from "@nestjs/config";
 
-console.log('fghjk', process.env.MONGO_URI,
-  process.env.MONGO_DB_NAME)
 
 @Module({
   imports: [AuthModule,

@@ -9,7 +9,7 @@ import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
-    logger: env.NODE_ENV === 'development' ? ['error', 'warn', 'log', 'verbose'] : ['error', 'warn', 'log', 'debug']
+    logger: env.NODE_ENV === 'development' ? ['error', 'warn', 'log', 'verbose'] : ['error', 'warn', 'debug']
   });
 
 
