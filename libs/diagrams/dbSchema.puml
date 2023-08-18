@@ -1,0 +1,50 @@
+@startuml Project
+'left to right direction
+'https://plantuml.com/object-diagram
+hide circle
+skinparam linetype ortho
+' Horizontal lines: -->, <--, <-->
+' Vertical lines: ->, <-, <->
+title Project: ProDecipher
+
+database Database
+package Collections{
+map organizationSites {
+     **Field Name ** => **Data type **
+    _id => objectId
+    siteLocation => string
+    organizationName => string
+    organizationId => objectId
+    siteManager => string
+    initialStock => string
+    currentBalance => string
+}
+map users {
+   **Field Name ** => **Data type **
+        _id => objectId
+        username => string
+        password => string
+        role => objectId
+        organizationName => string
+        site => objectId
+
+}
+
+map roles {
+ **Field Name ** => **Data type **
+        _id => objectId
+        userType => string
+        permissions => Array
+}
+}
+
+
+
+users --* roles: to fetch different roles from roles collection
+Database -> Collections
+organizationSites --* users: to fetch the user details from users collection
+
+
+
+
+@enduml
