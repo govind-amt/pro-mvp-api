@@ -1,8 +1,11 @@
 import {Body, Controller , Post} from '@nestjs/common';
 import {ApiTags} from "@nestjs/swagger";
 import {AuthService} from "./auth.service";
+import { UseInterceptors } from '@nestjs/common';
+import {SentryInterceptor} from "@pro-fuel-trace-api/configuration";
 import {LoginDto, SignUpDto} from "@pro-fuel-trace-api/data-transfer-object";
 
+@UseInterceptors(SentryInterceptor)
 @ApiTags('Auth')
 @Controller()
 export class AuthController {

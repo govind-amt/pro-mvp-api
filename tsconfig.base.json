@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@pro-fuel-trace-api/auth": ["libs/auth/src/index.ts"],
+      "@pro-fuel-trace-api/configuration": ["libs/configuration/src/index.ts"],
       "@pro-fuel-trace-api/data-transfer-object": [
         "libs/data-transfer-object/src/index.ts"
       ],

@@ -4,10 +4,14 @@ import { AppService } from './app.service';
 import {AuthModule} from "@pro-fuel-trace-api/auth";
 import {MongooseModule} from "@nestjs/mongoose";
 import {ConfigModule, ConfigService} from "@nestjs/config";
+import {ConfigurationModule} from "@pro-fuel-trace-api/configuration";
+
+
 
 
 @Module({
   imports: [AuthModule,
+    ConfigurationModule,
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
