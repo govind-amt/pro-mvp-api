@@ -31,4 +31,14 @@ if(user && Object.keys(user).length) {
   }
 }
   }
+
+  /**
+   * function to create user while signing up
+   * @param username
+   * @param password
+   * @param orgName
+   */
+  async signUp(username:string,password:string,orgName:string){
+    return await this.userService.createUser(username, password,orgName);
+  }
 }
