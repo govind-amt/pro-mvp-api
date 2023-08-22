@@ -6,13 +6,13 @@ export class LoginDto{
     required: true,
   })
   @IsString()
-  username:string;
+  username!:string;
 
 
   @ApiProperty({
     required: true,
   })
   @IsString()
-  password:string;
+  password!:string;
 
 }

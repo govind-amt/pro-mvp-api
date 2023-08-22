@@ -1,6 +1,7 @@
 import {Injectable , UnauthorizedException} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import {UsersService} from "@pro-fuel-trace-api/users";
+import * as bcrypt from "bcrypt";
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,11 @@ export class AuthService {
     const user = await this.userService.getUser(username);
     /* DB checking for authentication*/
 if(user && Object.keys(user).length) {
-  if (user.password !== password) {
+
+  // Use bcrypt's compare function to check the provided password
+  const isPasswordMatching = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordMatching) {
     throw new UnauthorizedException();
   } else {
     // ADD relevant details like roles and permissions and sign JWT;

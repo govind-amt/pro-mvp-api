@@ -11,6 +11,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
     logger: env.NODE_ENV === 'development' ? ['error', 'warn', 'log', 'verbose'] : ['error', 'warn', 'debug']
   });
+  // Enable CORS here
+  app.enableCors();
 
 
   const globalPrefix = 'api';

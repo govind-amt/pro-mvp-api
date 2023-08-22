@@ -4,7 +4,7 @@ import {AuthService} from "./auth.service";
 import {LoginDto, SignUpDto} from "@pro-fuel-trace-api/data-transfer-object";
 
 @ApiTags('Auth')
-@Controller()
+@Controller('api')
 export class AuthController {
 
   constructor(
@@ -19,8 +19,8 @@ export class AuthController {
    * post method for sign-up
    * @param bodyParams
    */
-  @Post('sign-up')
-  signUp(@Body() bodyParams: SignUpDto ){
+  @Post('sign-in')
+  signIn(@Body() bodyParams: SignUpDto ){
     return this.authService.signUp(bodyParams.username,bodyParams.password,bodyParams.orgName)
   }
 }
