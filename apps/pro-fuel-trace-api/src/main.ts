@@ -6,6 +6,7 @@ import { AppModule } from './app/app.module';
 import { env } from 'process';
 import {logger} from "nx/src/utils/logger";
 import * as bodyParser from 'body-parser';
+import * as Sentry from '@sentry/node';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule,{
@@ -43,6 +44,11 @@ async function bootstrap() {
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
+
+  Sentry.init({
+    dsn: process.env.SENTRY_DNS,
+  });
+
 }
 
 bootstrap().catch((e)=>{
